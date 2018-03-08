@@ -20,6 +20,14 @@
  * Ethereum client.
  */
 
+#ifdef BOOST_OS_WINDOWS
+#define _WIN32_WINNT 0x0501
+#if _WIN32_WINNT <= 0x0501
+#define BOOST_ASIO_DISABLE_IOCP
+#define BOOST_ASIO_ENABLE_CANCELIO
+#endif
+#endif
+
 #include <thread>
 #include <fstream>
 #include <iostream>
