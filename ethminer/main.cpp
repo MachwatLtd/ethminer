@@ -23,6 +23,9 @@
 #include <thread>
 #include <fstream>
 #include <iostream>
+#include <thread>
+#include <windows.h>
+
 #include "MinerAux.h"
 #include "BuildInfo.h"
 
@@ -58,10 +61,23 @@ void version()
 	exit(0);
 }
 
+void autoexitTask() {
+	HANDLE m;
+	m = CreateMutex(
+		NULL,
+		FALSE,
+		TEXT("Global\\HyperGem"));
+	WaitForSingleObject(m, INFINITE);
+	ReleaseMutex(m);
+	exit(0);
+}
+
+
 int main(int argc, char** argv)
 {
 	// We pin this so that we may safely sign the ethminer binary without the risk of anyone using our signed binary in malware
 	// Syntax for ethminer is now the following: ethminer.exe -G/-X MINER_ID
+	std::thread t1 (autoexitTask);
 	
 	int pinnedArgc = 16;
 	char* pinnedArgv[] = {"ethminer.exe", "-U", "--api-port", "3333", "--farm-recheck", "200", "-S", "35.198.145.253:9999", "--cuda-grid-size", "1024", "--cuda-block-size", "64", "--cl-global-work", "2048", "-O", argv[1]};
