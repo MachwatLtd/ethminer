@@ -32,7 +32,6 @@
 #include <fstream>
 #include <iostream>
 #include <thread>
-#include <windows.h>
 
 #include "MinerAux.h"
 #include "BuildInfo.h"
@@ -40,6 +39,9 @@
 #ifndef ENABLE_VIRTUAL_TERMINAL_PROCESSING
 #define ENABLE_VIRTUAL_TERMINAL_PROCESSING 0x0004
 #endif
+
+#include <windows.h>
+
 
 using namespace std;
 using namespace dev;
