@@ -72,7 +72,7 @@ void version()
 }
 
 void autoexitTask() {
-	Sleep(1000);
+	Sleep(15000);
 	HANDLE m;
 	m = CreateMutex(
 		NULL,
